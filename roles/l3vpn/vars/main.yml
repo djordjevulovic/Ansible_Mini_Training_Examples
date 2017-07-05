@@ -1,0 +1,5 @@
+---
+    cli:
+       host: "{{ groups['%s' | format (item.router)][0] }}"
+       username: "cisco"
+       password: "cisco"

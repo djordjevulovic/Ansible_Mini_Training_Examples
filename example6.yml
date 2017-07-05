@@ -1,0 +1,26 @@
+
+---
+- hosts: "{{ l2vpn.router_1 }}, {{ l2vpn.router_2 }}"
+  connection: local
+  gather_facts: no
+
+  vars_files:
+       - "{{ customer }}-l2vpn.yml"
+
+  roles:
+    - role: l2vpn-p2p
+      when: inventory_hostname == "{{ l2vpn.router_1 }}" 
+      local_router: "{{ l2vpn.router_1 }}"
+      remote_router: "{{ l2vpn.router_2 }}"
+      interface:  "{{ l2vpn.interface_1 }}"
+      subif_id: "{{ l2vpn.subif_id_1 }}"
+      vlan_id: "{{ l2vpn.vlan_id_1 }}"
+      pw_id: "{{ l2vpn.pw_id }}"
+    - role: l2vpn-p2p
+      when: inventory_hostname == "{{ l2vpn.router_2 }}"
+      local_router: "{{ l2vpn.router_2 }}"
+      remote_router: "{{ l2vpn.router_1 }}"
+      interface: "{{ l2vpn.interface_2 }}"
+      subif_id: "{{ l2vpn.subif_id_2 }}"
+      vlan_id: "{{ l2vpn.vlan_id_2 }}"
+      pw_id: "{{ l2vpn.pw_id }}"

@@ -1,0 +1,11 @@
+interface {{ remote_interface }}
+ no shutdown
+ 
+router bgp {{ as_number }}
+ address-family vpnv4 unicast
+
+ neighbor {{ remote_neighbor }}
+  address-family vpnv4 unicast
+
+mpls ldp
+ interface {{ remote_interface }} 

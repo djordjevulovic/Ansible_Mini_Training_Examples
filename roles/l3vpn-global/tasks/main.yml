@@ -1,0 +1,13 @@
+---
+  - name: Configure L3 VPN site (dry-run)
+    template:
+       src: xr_l3vpn_global_config.j2
+       dest: "/tmp/l3vpn-{{ item.router }}-global.cfg"
+    when:
+       dry_run
+  - name: Configure L3 VPN site
+    iosxr_config:
+        provider: "{{ cli }}"
+        src: xr_l3vpn_global_config.j2
+    when:
+       not dry_run

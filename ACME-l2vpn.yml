@@ -1,0 +1,11 @@
+l2vpn:
+  name: ACME
+  router_1: 198.18.1.11
+  interface_1: GigabitEthernet0/0/0/0
+  subif_id_1: 1001
+  vlan_id_1: 2001
+  router_2: 198.18.1.12
+  interface_2: GigabitEthernet0/0/0/0
+  subif_id_2: 1002
+  vlan_id_2: 2002
+  pw_id: 3000

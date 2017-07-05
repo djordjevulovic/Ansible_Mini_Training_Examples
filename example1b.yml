@@ -1,0 +1,19 @@
+
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    cli:
+       host: "{{ groups['%s' | format (host)][0] }}"
+       username: "cisco"
+       password: "cisco"
+
+  tasks:
+  - iosxr_command:
+      provider: "{{ cli }}"
+      commands: "{{ cmd }}"
+    register: output
+  - debug: var=output.stdout_lines
+

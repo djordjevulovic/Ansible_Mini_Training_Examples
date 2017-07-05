@@ -1,0 +1,10 @@
+---
+    local_cli:
+       host: "{{ local_router }}"
+       username: "cisco"
+       password: "cisco"
+
+    remote_cli:
+       host: "{{ remote_router }}"
+       username: "cisco"
+       password: "cisco"

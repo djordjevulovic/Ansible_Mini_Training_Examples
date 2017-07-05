@@ -1,0 +1,18 @@
+---
+- hosts: "{{ host }}"
+  connection: local
+  gather_facts: no
+
+  vars:
+    cli:
+       host: "{{ ansible_host }}"
+       username: "cisco"
+       password: "cisco"
+
+  tasks:
+  - iosxr_command:
+      provider: "{{ cli }}"
+      commands: "{{ cmd }}"
+    register: output
+  - debug: var=output.stdout_lines
+

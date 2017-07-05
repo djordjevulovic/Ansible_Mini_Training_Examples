@@ -1,0 +1,19 @@
+
+---
+- hosts: demo-routers
+  connection: local
+  gather_facts: no
+
+  vars:
+    cli:
+       host: "{{ ansible_host }}"
+       username: "cisco"
+       password: "cisco"
+
+  tasks:
+  - iosxr_command:
+      provider: "{{ cli }}"
+      commands: "show ip interface brief | i Loopback0"
+    register: output
+  - debug: var=output.stdout
+

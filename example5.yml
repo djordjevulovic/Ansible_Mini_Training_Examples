@@ -1,0 +1,14 @@
+
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+   dry_run: false
+
+  vars_files:
+       - "{{ customer }}-l3vpn.yml"
+
+  roles:
+    - role: l3vpn

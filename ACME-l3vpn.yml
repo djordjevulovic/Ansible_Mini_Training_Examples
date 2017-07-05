@@ -1,0 +1,13 @@
+l3vpn:
+  vrf_name: ACME
+  as: 7922
+  vpn_id: 101
+  sites:
+   - router: RouterSFO
+     interface_name: Loopback101
+     ip_address: 192.168.101.1
+     subnet_mask: 255.255.255.255
+   - router: RouterFremont
+     interface_name: Loopback101
+     ip_address: 192.168.101.2
+     subnet_mask: 255.255.255.255

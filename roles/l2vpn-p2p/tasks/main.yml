@@ -1,0 +1,19 @@
+---
+  - name: Query remote router for Lo0 address
+    iosxr_command:
+        provider: "{{ remote_cli }}"
+        commands: "show ip interface brief | i Loopback0"
+    register: output
+  - name: Parse and find Lo0 IP address
+    set_fact:
+      remote_pe_lo0: | 
+        {{ output.stdout | map('regex_replace','^\sLoopback0\s+(?P<ip>[0-9.]+)\s+.*$','\g<ip>') | list | join | trim }}
+#  - debug: var=remote_pe_lo0
+#  - template:
+#      src: xr_l2vpn_config.j2
+#      dest: "/root/R{{ local_cli.host }}.cfg"
+  - name: Configure L2 VPN attachment circuit
+    iosxr_config:
+      provider: "{{ local_cli }}"
+      src: xr_l2vpn_config.j2
+

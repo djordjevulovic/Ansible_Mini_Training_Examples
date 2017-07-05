@@ -1,0 +1,22 @@
+
+---
+- hosts: all
+  connection: local
+  gather_facts: no
+
+  vars:
+    cli:
+       host: "{{ ansible_host }}"
+       username: "cisco"
+       password: "cisco"
+
+  tasks:
+  - name: Execute command on a router
+    iosxr_command:
+      provider: "{{ cli }}"
+      commands: "show ip interface brief | i Loopback0"
+    register: output
+  - name: parse output
+    set_fact:
+      l0addr: | 
+        {{ output.stdout | map('regex_replace','^\sLoopback0\s+(?P<ip>[0-9.]+)\s+.*$','\g<ip>') | list | join }}

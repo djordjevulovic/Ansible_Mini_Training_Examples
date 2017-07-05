@@ -1,0 +1,11 @@
+interface {{ interface }}.{{ subif_id }} l2transport
+ description {{ customer }}
+ encapsulation dot1q {{ vlan_id }} 
+ rewrite ingress tag pop 1 symmetric
+
+l2vpn
+ xconnect group XC{{ subif_id }}
+  p2p XC{{ subif_id }}
+   interface {{ interface }}.{{ subif_id }}
+   neighbor ipv4 {{ remote_pe_lo0 | trim }} pw-id {{ pw_id }}
+

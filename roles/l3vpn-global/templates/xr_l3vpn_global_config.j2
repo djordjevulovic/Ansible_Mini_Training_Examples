@@ -1,0 +1,15 @@
+vrf {{ l3vpn.vrf_name }}
+ address-family ipv4 unicast
+  import route-target
+   {{ l3vpn.as }}:{{ l3vpn.vpn_id }}
+  !
+  export route-target
+   {{ l3vpn.as }}:{{ l3vpn.vpn_id }}
+  !
+ !
+!
+router bgp {{ l3vpn.as }}
+ vrf {{ l3vpn.vrf_name }}
+  rd {{ l3vpn.as }}:{{ l3vpn.vpn_id }}
+  address-family ipv4 unicast
+   redistribute connected  
